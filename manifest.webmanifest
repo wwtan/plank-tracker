@@ -1,0 +1,14 @@
+{
+  "id": "./",
+  "name": "Plank Tracker",
+  "short_name": "Plank",
+  "description": "Track plank time, every pause, and your progress.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f4ef",
+  "theme_color": "#b11f4b",
+  "icons": [
+    { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

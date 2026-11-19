@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <style>
+    :root { --cp-accent: #b11f4b; --cp-accent-fg: #ffffff; }
+    .background { fill: var(--cp-accent); }
+    .mark { stroke: var(--cp-accent-fg); fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 22; }
+  </style>
+  <rect class="background" width="512" height="512" rx="96"/>
+  <g class="mark">
+    <path d="M128 342h256M148 320l32-84 152 58 32 26M180 236l-24 84h-28"/>
+    <circle cx="172" cy="182" r="25"/>
+  </g>
+</svg>

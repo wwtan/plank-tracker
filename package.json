@@ -1,0 +1,9 @@
+{
+  "name": "plank-tracker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "start": "python3 -m http.server 8780 --bind 0.0.0.0"
+  }
+}

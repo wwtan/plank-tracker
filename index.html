@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <script>
+    (() => {
+      const param = new URLSearchParams(window.location.search).get("scoutTheme");
+      const theme =
+        param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#b11f4b">
+  <meta name="description" content="Same goal. Fewer breaks. Track plank time, every pause, and your progress.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Plank Tracker</title>
+</head>
+<body>
+  <main>
+    <header>
+      <a class="brand" href="./" aria-label="Plank Tracker home"><img src="./icon.svg" width="36" height="36" alt=""> Plank <span>Tracker</span></a>
+      <button id="install" class="quiet" hidden>Install app</button>
+    </header>
+    <div id="error" class="notice error" role="alert" hidden></div>
+    <div id="notice" class="notice" role="status" hidden></div>
+    <section class="intro">
+      <p class="eyebrow">YOUR DAILY PRACTICE</p>
+      <h1>Same goal.<br>Stronger every day.</h1>
+      <p>Progress is fewer breaks, less rest, and longer holds.</p>
+    </section>
+    <section class="card timer-card" aria-labelledby="timer-heading">
+      <div class="section-top">
+        <h2 id="timer-heading">Today's plank</h2>
+        <span id="session-state" class="badge" role="status">Ready when you are</span>
+      </div>
+      <form id="goal-form" class="goal-controls">
+        <label for="goal-minutes">Plank goal</label>
+        <input id="goal-minutes" type="number" min="0" max="60" step="1" value="5" required aria-label="Goal minutes">
+        <span>min</span>
+        <input id="goal-seconds" type="number" min="0" max="59" step="1" value="0" required aria-label="Goal seconds">
+        <span>sec</span>
+        <button id="save-goal" type="submit" class="quiet">Set</button>
+      </form>
+      <p id="goal-hint" class="small">Only time holding the plank counts towards your goal.</p>
+      <div class="dial" id="dial">
+        <svg viewBox="0 0 240 240" aria-hidden="true">
+          <circle class="track" cx="120" cy="120" r="108"></circle>
+          <circle id="progress-ring" class="progress" cx="120" cy="120" r="108" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"></circle>
+        </svg>
+        <div class="dial-text">
+          <span id="timer-label" class="eyebrow">PLANK TIME LEFT</span>
+          <span id="countdown" class="countdown" role="timer" aria-label="Plank time remaining">05:00</span>
+          <span id="timer-subtitle" class="small">Make time for you.</span>
+        </div>
+      </div>
+      <div class="session-stats">
+        <div><strong id="pause-count">0</strong><span>pauses</span></div>
+        <div><strong id="rest-total">0:00</strong><span>total rest</span></div>
+        <div><strong id="longest-hold">0:00</strong><span>longest hold</span></div>
+      </div>
+      <button id="primary" class="primary">Start plank</button>
+      <button id="finish" class="quiet finish" hidden>Finish early &amp; save</button>
+      <p id="device-hint" class="small device-hint">Keep this screen open. Breaks are recorded when you tap Pause.</p>
+      <details id="live-pauses" hidden>
+        <summary>Pause details</summary>
+        <ol id="live-pause-list" class="pause-list"></ol>
+      </details>
+    </section>
+    <section class="card" aria-labelledby="progress-heading">
+      <div class="section-top"><h2 id="progress-heading">See your progress</h2><span class="small">Completed sessions</span></div>
+      <div class="progress-stats">
+        <div><strong id="streak">0</strong><span>day streak</span></div>
+        <div><strong id="completed">0</strong><span>completed</span></div>
+        <div><strong id="best-hold">0:00</strong><span>best hold</span></div>
+      </div>
+      <p id="comparison" class="insight">Your first session is your starting point, not a score to beat.</p>
+      <label class="chart-filter" for="chart-goal">Compare the same goal <select id="chart-goal"></select></label>
+      <p class="small">Your latest 30 completed sessions for this goal. Fewer pauses and less rest mean progress.</p>
+      <div id="charts"></div>
+      <p class="small">Hold times are measured per session, not across the whole day. Early finishes stay in history but are excluded from these comparisons.</p>
+    </section>
+    <section class="card" aria-labelledby="history-heading">
+      <div class="section-top"><h2 id="history-heading">Your sessions</h2><span id="history-count" class="small">No sessions yet</span></div>
+      <div id="history"><p class="empty">A little practice, a clearer picture. Your sessions will appear here.</p></div>
+    </section>
+    <footer>
+      <p>Private by default. Saved only in this browser on this device.<br>Clearing browser data removes your history. Export a backup regularly.</p>
+      <div class="backup-controls">
+        <button id="export" class="quiet">Export backup</button>
+        <button id="import" class="quiet">Restore backup</button>
+        <input id="import-file" type="file" accept=".json,application/json" hidden>
+      </div>
+      <p id="offline-status">For Android: open in Chrome, then choose Add to Home screen from the menu.</p>
+      <p class="small">Stop if you feel pain. Rest whenever you need to.</p>
+    </footer>
+  </main>
+  <noscript>This timer needs JavaScript. Enable it in your browser to use Plank Tracker.</noscript>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
